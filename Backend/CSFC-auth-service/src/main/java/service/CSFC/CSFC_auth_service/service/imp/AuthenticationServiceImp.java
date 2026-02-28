@@ -10,9 +10,7 @@ import service.CSFC.CSFC_auth_service.common.exception.ResourceNotFoundException
 import service.CSFC.CSFC_auth_service.common.exception.UnauthorizedException;
 import service.CSFC.CSFC_auth_service.common.security.CustomerUserDetails;
 import service.CSFC.CSFC_auth_service.mapper.UserMapper;
-import service.CSFC.CSFC_auth_service.model.dto.request.LoginRequest;
-import service.CSFC.CSFC_auth_service.model.dto.request.RefreshTokenRequest;
-import service.CSFC.CSFC_auth_service.model.dto.request.RegisterRequest;
+import service.CSFC.CSFC_auth_service.model.dto.request.*;
 import service.CSFC.CSFC_auth_service.model.dto.response.AuthResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.RegisterResponse;
 
@@ -22,6 +20,7 @@ import service.CSFC.CSFC_auth_service.model.entity.Users;
 import service.CSFC.CSFC_auth_service.repository.RolesRepository;
 import service.CSFC.CSFC_auth_service.repository.UsersRepository;
 import service.CSFC.CSFC_auth_service.service.AuthenticationService;
+import service.CSFC.CSFC_auth_service.service.EmailService;
 import service.CSFC.CSFC_auth_service.service.JwtService;
 
 @Service
@@ -32,6 +31,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
+    private final EmailService emailService;
 
     @Override
     public AuthResponse login(LoginRequest request) {
@@ -90,6 +90,27 @@ public class AuthenticationServiceImp implements AuthenticationService {
         String newAccessToken = jwtService.generateAccessToken(customUserDetails);
 
         return buildAuthResponse(user, newAccessToken, refreshToken);
+    }
+
+    @Override
+    public void forgotPassword(ForgotPasswordRequest request) {
+        Users user = usersRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản với email: " + request.getEmail()));
+
+        String resetToken = jwtService.generatePasswordResetToken(user.getEmail());
+        String resetLink = "http://localhost:3000/reset-password?token=" + resetToken;
+        emailService.sendEmail(user.getEmail(), resetLink);
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordRequest request) {
+        String email = jwtService.extractUsername(request.getToken());
+        Users user = usersRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản với email: " + email));
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.setRefreshToken(null);
+        usersRepository.save(user);
+
     }
 
 

@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
 import service.CSFC.CSFC_auth_service.common.security.CustomerUserDetails;
-import service.CSFC.CSFC_auth_service.model.dto.request.LoginRequest;
-import service.CSFC.CSFC_auth_service.model.dto.request.RefreshTokenRequest;
-import service.CSFC.CSFC_auth_service.model.dto.request.RegisterRequest;
+import service.CSFC.CSFC_auth_service.model.dto.request.*;
 import service.CSFC.CSFC_auth_service.model.dto.response.AuthResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.RegisterResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
@@ -54,4 +52,15 @@ public class AuthenticationController {
         return ResponseEntity.ok(BaseResponse.success("Lấy thông tin người dùng thành công", userResponse));
     }
 
+    @PostMapping("/forgot-password")
+    public ResponseEntity<BaseResponse<String>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        authenticationService.forgotPassword(request);
+        return ResponseEntity.ok(BaseResponse.success("Yêu cầu đặt lại mật khẩu đã được gửi đến email của bạn", null));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<BaseResponse<String>> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        authenticationService.resetPassword(request);
+        return ResponseEntity.ok(BaseResponse.success("Đặt lại mật khẩu thành công", null));
+    }
 }
