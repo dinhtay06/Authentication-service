@@ -2,14 +2,17 @@ package service.CSFC.CSFC_auth_service.service.imp;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import service.CSFC.CSFC_auth_service.common.exception.BadRequestException;
 import service.CSFC.CSFC_auth_service.common.exception.ResourceNotFoundException;
 import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
 import service.CSFC.CSFC_auth_service.mapper.UserMapper;
-import service.CSFC.CSFC_auth_service.model.dto.response.AuthResponse;
+import service.CSFC.CSFC_auth_service.model.dto.request.CreateUserRequest;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
+import service.CSFC.CSFC_auth_service.model.entity.Roles;
 import service.CSFC.CSFC_auth_service.model.entity.Users;
+import service.CSFC.CSFC_auth_service.repository.RolesRepository;
 import service.CSFC.CSFC_auth_service.repository.UsersRepository;
 import service.CSFC.CSFC_auth_service.service.UserService;
 
@@ -18,9 +21,11 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImp  implements UserService {
-
+    private final PasswordEncoder passwordEncoder;
     private final UsersRepository usersRepository;
+    private final RolesRepository rolesRepository;
     private final UserMapper userMapper;
+
     @Override
     public UserResponse getCurrentUser(String email) {
         Users users = usersRepository.findByEmail(email)
