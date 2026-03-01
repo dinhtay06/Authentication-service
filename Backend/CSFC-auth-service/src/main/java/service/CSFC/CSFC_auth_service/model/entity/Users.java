@@ -22,6 +22,8 @@ public class Users {
     private String password;
     private LocalDateTime createDate;
     private String address;
+    private Boolean isFirstLogin;
+    private Boolean isActive;
     @JsonIgnore
     private String refreshToken;
     @ManyToOne
