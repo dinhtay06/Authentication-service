@@ -1,6 +1,7 @@
 package service.CSFC.CSFC_auth_service.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import service.CSFC.CSFC_auth_service.model.dto.request.AssignRoleRequest;
 import service.CSFC.CSFC_auth_service.model.dto.response.ResetPasswordResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserDetailResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserListResponse;
+import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
 import service.CSFC.CSFC_auth_service.service.AdminUserService;
 
 import java.util.UUID;
@@ -34,9 +36,13 @@ public class AdminAuthController {
     }
 
     @GetMapping
-    public ResponseEntity<BaseResponse<UserListResponse>> getAllUsers() {
+    public ResponseEntity<BaseResponse<Page<UserResponse>>> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
 
-        UserListResponse response = adminUserService.getAllUsers();
+     Page<UserResponse>  response = adminUserService.getAllUsers(page, size, sortBy, sortDir);
 
         return ResponseEntity.ok(
                 BaseResponse.success("Lấy danh sách người dùng thành công", response)
