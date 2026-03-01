@@ -24,7 +24,7 @@ import service.CSFC.CSFC_auth_service.service.UserService;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
-    private final UserService userService;
+
     @PostMapping("/register")
     public ResponseEntity<BaseResponse<RegisterResponse>> register(@Valid @RequestBody RegisterRequest request) {
         RegisterResponse response = authenticationService.register(request);

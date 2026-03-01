@@ -1,6 +1,10 @@
 package service.CSFC.CSFC_auth_service.service.imp;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import service.CSFC.CSFC_auth_service.mapper.UserMapper;
@@ -15,7 +19,6 @@ import service.CSFC.CSFC_auth_service.repository.RolesRepository;
 import service.CSFC.CSFC_auth_service.repository.UsersRepository;
 import service.CSFC.CSFC_auth_service.service.AdminUserService;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -46,16 +49,17 @@ public class AdminUserServiceImp implements AdminUserService {
 
 
     @Override
-    public UserListResponse getAllUsers() {
+    public Page<UserResponse> getAllUsers(int page, int size, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
 
-        List<UserResponse> users = usersRepository.findAll()
-                .stream()
-                .map(userMapper::toResponse)
-                .toList();
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-        return new UserListResponse(users);
+
+        return usersRepository.findAll(pageable)
+                .map(userMapper::toResponse);
     }
-
 
     @Override
     public UserDetailResponse getUserDetail(UUID userId) {
