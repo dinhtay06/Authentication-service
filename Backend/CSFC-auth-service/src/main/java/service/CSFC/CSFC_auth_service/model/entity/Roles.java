@@ -3,8 +3,10 @@ package service.CSFC.CSFC_auth_service.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.security.Permissions;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity(name = "roles")
@@ -17,4 +19,12 @@ public class Roles {
 
     @OneToMany(mappedBy = "role")
     private List<Users> users;
+
+    @ManyToMany
+    @JoinTable(
+            name = "role_permissions",
+            joinColumns = @JoinColumn(name="role_id"),
+            inverseJoinColumns = @JoinColumn(name="permission_id")
+    )
+    private Set<Permissions> permissions;
 }
