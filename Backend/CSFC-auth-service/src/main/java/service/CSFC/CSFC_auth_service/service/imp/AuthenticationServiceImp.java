@@ -23,6 +23,8 @@ import service.CSFC.CSFC_auth_service.service.AuthenticationService;
 import service.CSFC.CSFC_auth_service.service.EmailService;
 import service.CSFC.CSFC_auth_service.service.JwtService;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImp implements AuthenticationService {
@@ -59,14 +61,13 @@ public class AuthenticationServiceImp implements AuthenticationService {
                     "Email này đã tồn tại trên hệ thống, vui lòng sử dụng 1 email khác hoặc quên mật khẩu");
         }
 
-        Users user = new Users();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setAddress(request.getAddress());
+
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        Users user = userMapper.toEntity(request, encodedPassword);
         Roles defaultRole = new Roles();
         defaultRole.setId(2); // role USER có ID là 2
         user.setRole(defaultRole);
+        user.setCreateDate(LocalDateTime.now());
         usersRepository.save(user);
 
         return RegisterResponse.builder()
