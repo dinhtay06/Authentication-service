@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AdminPermissionsViewResponse {
-    private String id;
+    private int id;
     private String name;
     private String description;
 }

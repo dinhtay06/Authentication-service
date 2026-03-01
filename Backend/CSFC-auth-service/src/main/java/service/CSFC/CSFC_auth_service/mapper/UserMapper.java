@@ -16,7 +16,8 @@ public class UserMapper {
         user.setPassword(encodePassword);
         user.setName(request.getName());
         user.setAddress(request.getAddress());
-
+        user.setIsActive(true);
+        user.setIsFirstLogin(true);
         return user;
     }
     public Users toEntityCreateUserWithRoleByAdmin(CreateUserRequest request, String encodedPassword){
@@ -34,7 +35,6 @@ public class UserMapper {
         response.setEmail(user.getEmail());
         response.setRole(user.getRole().getName());
         response.setAddress(user.getAddress());
-
         return response;
     }
 
