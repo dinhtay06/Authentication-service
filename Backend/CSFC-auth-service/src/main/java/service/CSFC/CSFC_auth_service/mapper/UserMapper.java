@@ -1,10 +1,9 @@
 package service.CSFC.CSFC_auth_service.mapper;
 
 import org.springframework.stereotype.Component;
+import service.CSFC.CSFC_auth_service.model.dto.request.CreateUserRequest;
 import service.CSFC.CSFC_auth_service.model.dto.request.RegisterRequest;
-import service.CSFC.CSFC_auth_service.model.dto.response.RegisterResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
-import service.CSFC.CSFC_auth_service.model.entity.Roles;
 import service.CSFC.CSFC_auth_service.model.entity.Users;
 
 @Component
@@ -18,7 +17,14 @@ public class UserMapper {
 
         return user;
     }
-
+    public Users toEntityCreateUserWithRoleByAdmin(CreateUserRequest request, String encodedPassword){
+        Users user = new Users();
+        user.setEmail(request.getEmail());
+        user.setName(request.getName());
+        user.setAddress(request.getAddress());
+        user.setPassword(encodedPassword);
+        return user;
+    }
     public UserResponse toResponse(Users user) {
         UserResponse response = new UserResponse();
         response.setId(user.getId());
