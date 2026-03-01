@@ -11,6 +11,7 @@ import service.CSFC.CSFC_auth_service.repository.PermissionsRepository;
 import service.CSFC.CSFC_auth_service.repository.RolesRepository;
 import service.CSFC.CSFC_auth_service.service.AdminPermissionsService;
 
+import javax.management.relation.Role;
 import java.util.List;
 
 @Service
@@ -37,10 +38,22 @@ public class AdminPermissionsServiceImpl implements AdminPermissionsService {
 
         rolesRepository.save(role);
     }
+
     @Override
     public List<AdminPermissionsViewResponse> getAllPermissions() {
 
         return permissionsRepository.findAll()
+                .stream()
+                .map(permissionMapper::toResponse)
+                .toList();
+    }
+
+    @Override
+    public List<AdminPermissionsViewResponse> getAllPermissionsByRole(Integer roleId) {
+        Roles role = rolesRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
+
+        return role.getPermissions()
                 .stream()
                 .map(permissionMapper::toResponse)
                 .toList();
