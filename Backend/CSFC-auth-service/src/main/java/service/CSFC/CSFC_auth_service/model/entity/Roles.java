@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.security.Permissions;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,11 +21,11 @@ public class Roles {
     @OneToMany(mappedBy = "role")
     private List<Users> users;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "role_permissions",
-            joinColumns = @JoinColumn(name="role_id"),
-            inverseJoinColumns = @JoinColumn(name="permission_id")
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
-    private Set<Permissions> permissions;
+    private Set<Permission> permissions = new HashSet<>();
 }
