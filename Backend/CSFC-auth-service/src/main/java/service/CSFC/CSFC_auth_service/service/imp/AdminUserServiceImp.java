@@ -61,12 +61,8 @@ public class AdminUserServiceImp implements AdminUserService {
     public UserDetailResponse getUserDetail(UUID userId) {
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
-        UserDetailResponse response = new UserDetailResponse();
-        response.setId(user.getId());
-        response.setEmail(user.getEmail());
-        response.setRole(user.getRole() != null ? user.getRole().getName() : null);
-        response.setIsFirstLogin(user.getIsFirstLogin());
-        return response;
+
+        return userMapper.toDetailResponse(user);
     }
 
     @Override

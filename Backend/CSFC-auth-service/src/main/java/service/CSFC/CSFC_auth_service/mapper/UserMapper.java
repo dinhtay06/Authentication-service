@@ -3,6 +3,7 @@ package service.CSFC.CSFC_auth_service.mapper;
 import org.springframework.stereotype.Component;
 import service.CSFC.CSFC_auth_service.model.dto.request.RegisterRequest;
 import service.CSFC.CSFC_auth_service.model.dto.response.RegisterResponse;
+import service.CSFC.CSFC_auth_service.model.dto.response.UserDetailResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
 import service.CSFC.CSFC_auth_service.model.entity.Roles;
 import service.CSFC.CSFC_auth_service.model.entity.Users;
@@ -27,6 +28,15 @@ public class UserMapper {
         response.setRole(user.getRole().getName());
         response.setAddress(user.getAddress());
 
+        return response;
+    }
+
+    public UserDetailResponse toDetailResponse(Users user) {
+        UserDetailResponse response = new UserDetailResponse();
+        response.setId(user.getId());
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole() != null ? user.getRole().getName() : null);
+        response.setIsFirstLogin(user.getIsFirstLogin());
         return response;
     }
 }
