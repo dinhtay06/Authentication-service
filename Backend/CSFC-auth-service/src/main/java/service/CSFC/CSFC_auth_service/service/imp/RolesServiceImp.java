@@ -45,6 +45,9 @@ public class RolesServiceImp implements RolesService {
         if (!rolesRepository.existsById(id)) {
             throw new RuntimeException("Không tìm thấy Role với ID: " + id);
         }
+        if (rolesRepository.findById(id).get().getUsers() != null && !rolesRepository.findById(id).get().getUsers().isEmpty()) {
+            throw new RuntimeException("Không thể xóa Role này vì có người dùng đang sử dụng!");
+        }
         rolesRepository.deleteById(id);
     }
 
