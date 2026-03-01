@@ -1,8 +1,6 @@
 package service.CSFC.CSFC_auth_service.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,6 +10,7 @@ import java.util.List;
 @Entity(name = "roles")
 public class Roles {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private LocalDateTime createDate;
