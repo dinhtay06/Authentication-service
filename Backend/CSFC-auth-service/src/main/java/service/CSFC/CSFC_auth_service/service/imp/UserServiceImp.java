@@ -48,7 +48,8 @@ public class UserServiceImp  implements UserService {
                 .orElseThrow(() ->
                         new BadRequestException("Không tìm thấy role: " + request.getRole().getName()));
         user.setRole(role);
-        //user.setisActive(true);
+        user.setIsActive(true);
+        user.setIsFirstLogin(true);
         return userMapper.toResponse(usersRepository.save(user));
     }
 }
