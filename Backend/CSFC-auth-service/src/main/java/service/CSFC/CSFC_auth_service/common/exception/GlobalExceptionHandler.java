@@ -6,6 +6,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -40,9 +41,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneral(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+
+
+    @ExceptionHandler(AppException.class)
+    public ResponseEntity<BaseResponse<Object>> handleAppException(AppException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(BaseResponse.error(e.getErrorCode(), e.getMessage()));
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<BaseResponse<Object>> handleGeneralException(Exception e) {
+        e.printStackTrace();
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(BaseResponse.error(500, "Lỗi hệ thống: " + e.getMessage()));
+    }
 }
