@@ -46,6 +46,21 @@ public class UserServiceImp  implements UserService {
         user.setIsActive(false);
     }
 
+
+        Users user = userMapper.toEntityCreateUserWithRoleByAdmin(request,passwordEncoder.encode("Demo@123"));
+
+        Roles role = (request.getRole() == null)
+                ? rolesRepository.findByName("USER")
+                .orElseThrow(() ->
+                        new BadRequestException("Không tìm thấy role mặc định: USER"))
+                : rolesRepository.findByName(request.getRole().getName())
+                .orElseThrow(() ->
+                        new BadRequestException("Không tìm thấy role: " + request.getRole().getName()));
+        user.setRole(role);
+        user.setIsActive(true);
+        user.setIsFirstLogin(true);
+        return userMapper.toResponse(usersRepository.save(user));
+
     @Override
     @Transactional
     public void deleteUserByAdmin(UUID id) {
@@ -55,5 +70,6 @@ public class UserServiceImp  implements UserService {
             throw new BadRequestException("Phải vô hiệu hóa người dùng trước khi xóa");
         }
         usersRepository.delete(user);
+
     }
 }
