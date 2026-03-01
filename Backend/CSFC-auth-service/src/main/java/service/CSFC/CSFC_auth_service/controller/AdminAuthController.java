@@ -79,7 +79,7 @@ public class AdminAuthController {
         adminUserService.assignRole(id, request.getRoleId());
 
         return ResponseEntity.ok(
-                BaseResponse.success("Phân quyền cho người dùng thành công", null)
+                BaseResponse.success("Chỉ định vai trò cho người dùng thành công", null)
         );
     }
 }
