@@ -21,45 +21,65 @@ public class AdminAuthController {
 
     private final AdminUserService adminUserService;
 
-
-
     @PutMapping("/{id}/reset-password")
     public ResponseEntity<BaseResponse<ResetPasswordResponse>> resetPassword(
             @PathVariable UUID id
     ) {
-        return ResponseEntity.ok(adminUserService.resetPassword(id));
+
+        ResetPasswordResponse response = adminUserService.resetPassword(id);
+
+        return ResponseEntity.ok(
+                BaseResponse.success("Đặt lại mật khẩu thành công", response)
+        );
     }
 
     @GetMapping
     public ResponseEntity<BaseResponse<UserListResponse>> getAllUsers() {
-        return ResponseEntity.ok(adminUserService.getAllUsers());
+
+        UserListResponse response = adminUserService.getAllUsers();
+
+        return ResponseEntity.ok(
+                BaseResponse.success("Lấy danh sách người dùng thành công", response)
+        );
     }
+
+    // ================= GET USER DETAIL =================
+
     @GetMapping("/{id}")
     public ResponseEntity<BaseResponse<UserDetailResponse>> getUserDetail(
             @PathVariable UUID id
     ) {
+
+        UserDetailResponse response = adminUserService.getUserDetail(id);
+
         return ResponseEntity.ok(
-                BaseResponse.success(
-                        "Get user detail successfully",
-                        adminUserService.getUserDetail(id)
-                )
+                BaseResponse.success("Lấy chi tiết người dùng thành công", response)
         );
     }
 
     @PutMapping("/{id}/activate")
-    public ResponseEntity<BaseResponse<?>> activateUser(
+    public ResponseEntity<BaseResponse<String>> activateUser(
             @PathVariable UUID id
     ) {
-        return ResponseEntity.ok(adminUserService.activateUser(id));
+
+        adminUserService.activateUser(id);
+
+        return ResponseEntity.ok(
+                BaseResponse.success("Kích hoạt tài khoản thành công", null)
+        );
     }
 
+
     @PutMapping("/{id}/roles")
-    public ResponseEntity<BaseResponse<?>> assignRole(
+    public ResponseEntity<BaseResponse<String>> assignRole(
             @PathVariable UUID id,
             @RequestBody AssignRoleRequest request
     ) {
+
+        adminUserService.assignRole(id, request.getRoleId());
+
         return ResponseEntity.ok(
-                adminUserService.assignRole(id, request.getRoleId())
+                BaseResponse.success("Phân quyền cho người dùng thành công", null)
         );
     }
 }

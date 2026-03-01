@@ -3,7 +3,6 @@ package service.CSFC.CSFC_auth_service.service.imp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
 import service.CSFC.CSFC_auth_service.mapper.UserMapper;
 import service.CSFC.CSFC_auth_service.model.dto.response.ResetPasswordResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserDetailResponse;
@@ -20,7 +19,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-
 @RequiredArgsConstructor
 public class AdminUserServiceImp implements AdminUserService {
 
@@ -29,7 +27,9 @@ public class AdminUserServiceImp implements AdminUserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
-    public BaseResponse<ResetPasswordResponse> resetPassword(UUID userId) {
+
+    @Override
+    public ResetPasswordResponse resetPassword(UUID userId) {
 
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
@@ -41,54 +41,47 @@ public class AdminUserServiceImp implements AdminUserService {
 
         usersRepository.save(user);
 
-        return BaseResponse.success(
-                "Đặt lại mật khẩu thành công",
-                new ResetPasswordResponse(user.getId(), rawPassword)
-        );
+        return new ResetPasswordResponse(user.getId(), rawPassword);
     }
 
-    public BaseResponse<UserListResponse> getAllUsers() {
+
+    @Override
+    public UserListResponse getAllUsers() {
 
         List<UserResponse> users = usersRepository.findAll()
                 .stream()
                 .map(userMapper::toResponse)
                 .toList();
 
-        return BaseResponse.success(
-                "Lấy danh sách người dùng thành công",
-                new UserListResponse(users)
-        );
+        return new UserListResponse(users);
     }
 
-    public UserDetailResponse getUserDetail(UUID userId) {
 
+    @Override
+    public UserDetailResponse getUserDetail(UUID userId) {
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
-
         UserDetailResponse response = new UserDetailResponse();
         response.setId(user.getId());
         response.setEmail(user.getEmail());
         response.setRole(user.getRole() != null ? user.getRole().getName() : null);
         response.setIsFirstLogin(user.getIsFirstLogin());
-
         return response;
     }
 
-    public BaseResponse<?> activateUser(UUID userId) {
+    @Override
+    public void activateUser(UUID userId) {
 
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
 
         user.setIsActive(true);
         usersRepository.save(user);
-
-        return BaseResponse.success(
-                "Kích hoạt tài khoản thành công",
-                null
-        );
     }
 
-    public BaseResponse<?> assignRole(UUID userId, Long roleId) {
+
+    @Override
+    public void assignRole(UUID userId, Long roleId) {
 
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
@@ -98,10 +91,5 @@ public class AdminUserServiceImp implements AdminUserService {
 
         user.setRole(role);
         usersRepository.save(user);
-
-        return BaseResponse.success(
-                "Phân quyền cho người dùng thành công",
-                null
-        );
     }
 }
