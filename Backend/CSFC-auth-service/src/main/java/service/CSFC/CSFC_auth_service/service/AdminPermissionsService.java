@@ -9,4 +9,6 @@ public interface AdminPermissionsService {
     void addPermissionToRole(Integer roleId, String permissionName);
 
     List<AdminPermissionsViewResponse> getAllPermissions();
+
+    List<AdminPermissionsViewResponse> getAllPermissionsByRole(Integer roleId);
 }

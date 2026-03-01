@@ -27,6 +27,7 @@ public class AdminPermissionsController {
         adminPermissionsService.addPermissionToRole(roleId, permissionName.trim().toUpperCase());
         return ResponseEntity.ok(BaseResponse.success("Gán permission cho role thành công", null));
     }
+
     @GetMapping("/permissions")
     public ResponseEntity<BaseResponse<List<AdminPermissionsViewResponse>>> getAllPermissions() {
 
@@ -37,4 +38,14 @@ public class AdminPermissionsController {
                 BaseResponse.success("Lấy danh sách permission thành công", permissions)
         );
     }
+
+    @GetMapping("/{roleId}/permissions")
+    public ResponseEntity<BaseResponse<List<AdminPermissionsViewResponse>>> getAllPermissionsByRole(
+            @PathVariable Integer roleId
+    ){
+        List<AdminPermissionsViewResponse> permissions =
+                adminPermissionsService.getAllPermissionsByRole(roleId);
+        return ResponseEntity.ok(BaseResponse.success("Lấy danh sách permission của role thành công", permissions));
+    }
+
 }
