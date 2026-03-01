@@ -1,13 +1,15 @@
 package service.CSFC.CSFC_auth_service.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
 import service.CSFC.CSFC_auth_service.model.dto.request.AssignRoleRequest;
 import service.CSFC.CSFC_auth_service.model.dto.response.ResetPasswordResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserDetailResponse;
-import service.CSFC.CSFC_auth_service.service.AuthenticationService;
+import service.CSFC.CSFC_auth_service.model.dto.response.UserListResponse;
+import service.CSFC.CSFC_auth_service.service.AdminUserService;
 
 import java.util.UUID;
 
@@ -17,42 +19,47 @@ import java.util.UUID;
 @RequestMapping("/api/admin/auth-users")
 public class AdminAuthController {
 
-    private final AuthenticationService authenticationService;
+    private final AdminUserService adminUserService;
+
+
 
     @PutMapping("/{id}/reset-password")
-    public BaseResponse<ResetPasswordResponse> resetPassword(
+    public ResponseEntity<BaseResponse<ResetPasswordResponse>> resetPassword(
             @PathVariable UUID id
     ) {
-        return authenticationService.resetPasswordByAdmin(id);
+        return ResponseEntity.ok(adminUserService.resetPassword(id));
     }
 
     @GetMapping
-    public BaseResponse<?> getAllUsers() {
-        return authenticationService.getAllUsers();
+    public ResponseEntity<BaseResponse<UserListResponse>> getAllUsers() {
+        return ResponseEntity.ok(adminUserService.getAllUsers());
     }
-
     @GetMapping("/{id}")
-    public BaseResponse<UserDetailResponse> getUserDetail(
+    public ResponseEntity<BaseResponse<UserDetailResponse>> getUserDetail(
             @PathVariable UUID id
     ) {
-        UserDetailResponse response =
-                authenticationService.getUserDetailByAdmin(id);
-
-        return BaseResponse.success("Get user detail successfully", response);
+        return ResponseEntity.ok(
+                BaseResponse.success(
+                        "Get user detail successfully",
+                        adminUserService.getUserDetail(id)
+                )
+        );
     }
 
     @PutMapping("/{id}/activate")
-    public BaseResponse<?> activateUser(
+    public ResponseEntity<BaseResponse<?>> activateUser(
             @PathVariable UUID id
     ) {
-        return authenticationService.activateUserByAdmin(id);
+        return ResponseEntity.ok(adminUserService.activateUser(id));
     }
 
     @PutMapping("/{id}/roles")
-    public BaseResponse<?> assignRole(
+    public ResponseEntity<BaseResponse<?>> assignRole(
             @PathVariable UUID id,
             @RequestBody AssignRoleRequest request
     ) {
-        return authenticationService.assignRoleByAdmin(id, request.getRoleId());
+        return ResponseEntity.ok(
+                adminUserService.assignRole(id, request.getRoleId())
+        );
     }
 }
