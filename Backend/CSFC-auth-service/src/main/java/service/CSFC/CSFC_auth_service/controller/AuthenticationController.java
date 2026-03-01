@@ -45,13 +45,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(BaseResponse.success("Làm mới accessToken thành công", authResponse));
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<BaseResponse<UserResponse>> getCurrentUser(@AuthenticationPrincipal CustomerUserDetails currentUser) {
-        String email = currentUser.getUser().getEmail();
-        UserResponse userResponse = userService.getCurrentUser(email);
-        return ResponseEntity.ok(BaseResponse.success("Lấy thông tin người dùng thành công", userResponse));
-    }
-
     @PostMapping("/forgot-password")
     public ResponseEntity<BaseResponse<String>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
         authenticationService.forgotPassword(request);
