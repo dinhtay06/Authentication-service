@@ -2,6 +2,8 @@ package service.CSFC.CSFC_auth_service.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.security.Permissions;
 import java.time.LocalDateTime;
@@ -9,7 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity(name = "roles")
 public class Roles {
     @Id
