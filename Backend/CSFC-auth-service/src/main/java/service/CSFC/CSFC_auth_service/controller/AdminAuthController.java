@@ -17,13 +17,13 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/api/admin/auth-users")
 public class AdminAuthController {
 
     private final AdminUserService adminUserService;
 
     @PutMapping("/{id}/reset-password")
+    @PreAuthorize("hasAuthority('USER_RESET_PASSWORD')")
     public ResponseEntity<BaseResponse<ResetPasswordResponse>> resetPassword(
             @PathVariable UUID id
     ) {
@@ -36,6 +36,7 @@ public class AdminAuthController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('USER_VIEW')")
     public ResponseEntity<BaseResponse<Page<UserResponse>>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -52,6 +53,7 @@ public class AdminAuthController {
     // ================= GET USER DETAIL =================
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER_VIEW')")
     public ResponseEntity<BaseResponse<UserDetailResponse>> getUserDetail(
             @PathVariable UUID id
     ) {
@@ -64,6 +66,7 @@ public class AdminAuthController {
     }
 
     @PutMapping("/{id}/activate")
+    @PreAuthorize("hasAuthority('USER_UPDATE_STATUS')")
     public ResponseEntity<BaseResponse<String>> activateUser(
             @PathVariable UUID id
     ) {
@@ -77,6 +80,7 @@ public class AdminAuthController {
 
 
     @PutMapping("/{id}/roles")
+    @PreAuthorize("hasAuthority('USER_ASSIGN_ROLE')")
     public ResponseEntity<BaseResponse<String>> assignRole(
             @PathVariable UUID id,
             @RequestBody AssignRoleRequest request

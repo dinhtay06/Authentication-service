@@ -2,6 +2,7 @@ package service.CSFC.CSFC_auth_service.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
@@ -19,6 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/me")
+    @PreAuthorize(("hasAuthority('USER_READ_SELF')"))
     public ResponseEntity<BaseResponse<UserResponse>> getCurrentUser(
             @AuthenticationPrincipal CustomerUserDetails currentUser
     ) {
@@ -29,8 +31,8 @@ public class UserController {
         );
     }
 
-   
-    //@PreAuthorize("hasAuthority('USER_DELETE')")
+
+    @PreAuthorize("hasAuthority('USER_DELETE')")
     @DeleteMapping("/{id}")
     public ResponseEntity<BaseResponse<String>> deleteUser(@PathVariable UUID id) {
         userService.deleteUserByAdmin(id);
@@ -40,8 +42,8 @@ public class UserController {
         );
     }
 
-   
-    //@PreAuthorize("hasAuthority('USER_DEACTIVATE')")
+
+    @PreAuthorize("hasAuthority('USER_UPDATE_STATUS')")
     @PatchMapping("/{id}/deactivate")
     public ResponseEntity<BaseResponse<String>> deactivateUser(@PathVariable UUID id) {
         userService.deActivateUserByAdmin(id);

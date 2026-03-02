@@ -13,13 +13,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/admin/roles")
 public class AdminPermissionsController {
 
     private final AdminPermissionsService adminPermissionsService;
 
     @PostMapping("/{roleId}/permissions")
+    @PreAuthorize("hasAuthority('PERMISSION_ASSIGN')")
     public ResponseEntity<BaseResponse<Object>> addPermissionToRole(
             @PathVariable Integer roleId,
             @RequestParam @NotBlank String permissionName
@@ -29,6 +29,7 @@ public class AdminPermissionsController {
     }
 
     @GetMapping("/permissions")
+    @PreAuthorize("hasAuthority('PERMISSION_VIEW')")
     public ResponseEntity<BaseResponse<List<AdminPermissionsViewResponse>>> getAllPermissions() {
 
         List<AdminPermissionsViewResponse> permissions =
@@ -40,6 +41,7 @@ public class AdminPermissionsController {
     }
 
     @GetMapping("/{roleId}/permissions")
+    @PreAuthorize("hasAuthority('PERMISSION_VIEW')")
     public ResponseEntity<BaseResponse<List<AdminPermissionsViewResponse>>> getAllPermissionsByRole(
             @PathVariable Integer roleId
     ){
