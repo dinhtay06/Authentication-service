@@ -1,9 +1,12 @@
 package service.CSFC.CSFC_auth_service.service.imp;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import service.CSFC.CSFC_auth_service.common.exception.BadRequestException;
+import service.CSFC.CSFC_auth_service.common.exception.ResourceNotFoundException;
+import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
 import service.CSFC.CSFC_auth_service.mapper.UserMapper;
 import service.CSFC.CSFC_auth_service.model.dto.request.CreateUserRequest;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
@@ -13,7 +16,7 @@ import service.CSFC.CSFC_auth_service.repository.RolesRepository;
 import service.CSFC.CSFC_auth_service.repository.UsersRepository;
 import service.CSFC.CSFC_auth_service.service.UserService;
 
-
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +33,19 @@ public class UserServiceImp  implements UserService {
 
         return userMapper.toResponse(users);
     }
-    //password set default Demo@123
+
+    @Override
+    @Transactional
+    public void deActivateUserByAdmin(UUID userId) {
+
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy người dùng"));
+        if (!Boolean.TRUE.equals(user.getIsActive())) {
+            throw new BadRequestException("Người dùng đã bị vô hiệu hóa");
+        }
+        user.setIsActive(false);
+    }
+
     @Override
     public UserResponse CreateUserWithRoleByAdmin(CreateUserRequest request) {
         if (usersRepository.existsByEmail(request.getEmail())) {
@@ -51,5 +66,17 @@ public class UserServiceImp  implements UserService {
         user.setIsActive(true);
         user.setIsFirstLogin(true);
         return userMapper.toResponse(usersRepository.save(user));
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserByAdmin(UUID id) {
+        Users user = usersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy người dùng"));
+        if (Boolean.TRUE.equals(user.getIsActive())) {
+            throw new BadRequestException("Phải vô hiệu hóa người dùng trước khi xóa");
+        }
+        usersRepository.delete(user);
+
     }
 }
