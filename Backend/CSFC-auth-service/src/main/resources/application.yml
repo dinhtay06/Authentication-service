@@ -7,15 +7,17 @@ spring:
     username: root
     password: admin123
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: false
+
   mail:
     host: smtp.gmail.com
     port: 587
-    username: tuldse184668@fpt.edu.vn # Điền email của bạn (email hệ thống dùng để gửi đi)
-    password: fryzapjrxznpmkyc # Điền Mật khẩu ứng dụng (App Password) của Gmail, KHÔNG phải mật khẩu đăng nhập
+    username: tuldse184668@fpt.edu.vn
+    password: fryzapjrxznpmkyc
     properties:
       mail:
         smtp:
@@ -24,8 +26,8 @@ spring:
             enable: true
           ssl:
             trust: smtp.gmail.com
+
 jwt:
   secret: V7Pz0c5ZmTz4IVBdBrgiapaNOSKpRDWtT8AsXm+C1mE=
-  access-token-expiration: 900000 # 15 phút (ms)
-  refresh-token-expiration: 604800000 # 7 ngày (ms)
-
+  access-token-expiration: 900000
+  refresh-token-expiration: 604800000
