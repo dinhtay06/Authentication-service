@@ -65,7 +65,7 @@ public class UserController {
             @Valid @RequestBody CreateUserRequest request
     ) {
 
-        UserResponse response = userService.createUserWithRoleByAdmin(request);
+        UserResponse response = userService.CreateUserWithRoleByAdmin(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(BaseResponse.success("Tạo tài khoản thành công", response));
