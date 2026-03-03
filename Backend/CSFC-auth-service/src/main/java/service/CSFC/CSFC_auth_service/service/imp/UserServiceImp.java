@@ -1,3 +1,22 @@
+package service.CSFC.CSFC_auth_service.service.imp;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import service.CSFC.CSFC_auth_service.common.exception.BadRequestException;
+import service.CSFC.CSFC_auth_service.common.exception.ResourceNotFoundException;
+import service.CSFC.CSFC_auth_service.mapper.UserMapper;
+import service.CSFC.CSFC_auth_service.model.dto.request.CreateUserRequest;
+import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
+import service.CSFC.CSFC_auth_service.model.entity.Roles;
+import service.CSFC.CSFC_auth_service.model.entity.Users;
+import service.CSFC.CSFC_auth_service.repository.RolesRepository;
+import service.CSFC.CSFC_auth_service.repository.UsersRepository;
+import service.CSFC.CSFC_auth_service.service.UserService;
+
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService {
@@ -15,6 +34,8 @@ public class UserServiceImp implements UserService {
         return userMapper.toResponse(users);
     }
 
+
+
     @Override
     @Transactional
     public void deActivateUserByAdmin(UUID userId) {
@@ -29,9 +50,9 @@ public class UserServiceImp implements UserService {
         user.setIsActive(false);
     }
 
+
     @Override
-    @Transactional
-    public UserResponse createUserWithRoleByAdmin(CreateUserRequest request) {
+    public UserResponse CreateUserWithRoleByAdmin(CreateUserRequest request) {
 
         if (usersRepository.existsByEmail(request.getEmail())) {
             throw new BadRequestException(
@@ -40,15 +61,15 @@ public class UserServiceImp implements UserService {
 
         Users user = userMapper.toEntityCreateUserWithRoleByAdmin(
                 request,
-                passwordEncoder.encode("Demo@123")
+                passwordEncoder.encode("Demo@123") // default password
         );
 
         Roles role = (request.getRole() == null)
                 ? rolesRepository.findByName("USER")
-                    .orElseThrow(() ->
+                .orElseThrow(() ->
                         new BadRequestException("Không tìm thấy role mặc định: USER"))
                 : rolesRepository.findByName(request.getRole().getName())
-                    .orElseThrow(() ->
+                .orElseThrow(() ->
                         new BadRequestException("Không tìm thấy role: " +
                                 request.getRole().getName()));
 
