@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Coffee, Lock, Mail, Eye, EyeOff } from 'lucide-react';
+import { authService } from '@/services/authService';
+import { RegisterModal } from '@/components/RegisterModal';
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRole, setSelectedRole] = useState('admin');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate();
 
   const roles = [
@@ -16,10 +21,21 @@ export function Login() {
     { id: 'customer', label: 'Customer', description: 'Loyalty and orders' },
   ];
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login - in production, this would validate credentials
-    navigate('/');
+    setError('');
+    setIsLoading(true);
+    try {
+      await authService.login({ email, password });
+      navigate('/');
+    } catch (err: unknown) {
+      const message =
+        (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+        'Email hoặc mật khẩu không đúng.';
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -163,23 +179,38 @@ export function Login() {
               </a>
             </div>
 
+            {/* Error message */}
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-600">{error}</p>
+              </div>
+            )}
+
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 rounded-lg transition-colors"
+              disabled={isLoading}
+              className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-amber-400 text-white font-medium py-3 rounded-lg transition-colors"
             >
-              Sign In
+              {isLoading ? 'Đang đăng nhập...' : 'Sign In'}
             </button>
 
-            {/* Demo Credentials */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <p className="text-xs text-gray-600 mb-2 font-medium">Demo Credentials:</p>
-              <p className="text-xs text-gray-500">Email: demo@capitalcoffee.com</p>
-              <p className="text-xs text-gray-500">Password: demo123</p>
-            </div>
+            {/* Register link */}
+            <p className="text-center text-sm text-gray-600">
+              Chưa có tài khoản?{' '}
+              <button
+                type="button"
+                onClick={() => setShowRegister(true)}
+                className="text-amber-600 hover:text-amber-700 font-medium"
+              >
+                Đăng ký ngay
+              </button>
+            </p>
           </form>
         </div>
       </div>
+
+      <RegisterModal isOpen={showRegister} onClose={() => setShowRegister(false)} />
     </div>
   );
 }
