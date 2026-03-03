@@ -11,8 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import service.CSFC.CSFC_auth_service.common.security.AuthorizationFilter;
 import service.CSFC.CSFC_auth_service.common.security.CustomerUserDetailsService;
+
+import java.util.List;
+
 @EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
@@ -22,9 +28,11 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-   @Bean
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthorizationFilter authorizationFilter) throws Exception {
-        return  http
+        return http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers(
@@ -39,7 +47,7 @@ public class SecurityConfig {
                 })
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-   }
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, CustomerUserDetailsService customerUserDetailsService) throws Exception {
@@ -51,5 +59,22 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder());
 
         return authBuilder.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // Cho phép Frontend ở cổng 5173 truy cập
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        // Cho phép các HTTP method này
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        // Cho phép các header cần thiết
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "x-no-retry"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Áp dụng cấu hình CORS này cho toàn bộ API (/**)
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
