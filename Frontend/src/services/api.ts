@@ -7,10 +7,17 @@ const api = axios.create({
   },
 });
 
+
+// Danh sách các API không cần đính kèm Token (Public APIs)
+const publicEndpoints = ['/auth/login', '/auth/register', '/auth/forgot-password'];
+
 // Attach token to every request if available
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
-  if (token) {
+
+  // Kiểm tra xem URL hiện tại có nằm trong danh sách không cần token không
+  const isPublicAPI = publicEndpoints.some(endpoint => config.url?.includes(endpoint));
+  if (token && !isPublicAPI) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
