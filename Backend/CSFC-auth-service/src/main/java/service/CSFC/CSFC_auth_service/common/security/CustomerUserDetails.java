@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import service.CSFC.CSFC_auth_service.model.entity.Users;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,7 +18,19 @@ public class CustomerUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        var role = user.getRole();
+
+        // role
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+
+        // permissions
+        if (role.getPermissions() != null) {
+            role.getPermissions().forEach(p ->
+                    authorities.add(new SimpleGrantedAuthority(p.getName()))
+            );
+        }
+        return authorities;
     }
 
     @Override
@@ -33,5 +46,8 @@ public class CustomerUserDetails implements UserDetails {
     @Override public boolean isAccountNonExpired() { return true; }
     @Override public boolean isAccountNonLocked() { return true; }
     @Override public boolean isCredentialsNonExpired() { return true; }
-    @Override public boolean isEnabled() { return true; }
+    @Override
+    public boolean isEnabled() {
+        return Boolean.TRUE.equals(user.getIsActive());
+    }
 }

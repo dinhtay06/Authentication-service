@@ -24,7 +24,7 @@ import service.CSFC.CSFC_auth_service.service.UserService;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
-    private final UserService userService;
+
     @PostMapping("/register")
     public ResponseEntity<BaseResponse<RegisterResponse>> register(@Valid @RequestBody RegisterRequest request) {
         RegisterResponse response = authenticationService.register(request);
@@ -43,13 +43,6 @@ public class AuthenticationController {
     public ResponseEntity<BaseResponse<AuthResponse>> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
         AuthResponse authResponse = authenticationService.refreshToken(request);
         return ResponseEntity.ok(BaseResponse.success("Làm mới accessToken thành công", authResponse));
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<BaseResponse<UserResponse>> getCurrentUser(@AuthenticationPrincipal CustomerUserDetails currentUser) {
-        String email = currentUser.getUser().getEmail();
-        UserResponse userResponse = userService.getCurrentUser(email);
-        return ResponseEntity.ok(BaseResponse.success("Lấy thông tin người dùng thành công", userResponse));
     }
 
     @PostMapping("/forgot-password")
