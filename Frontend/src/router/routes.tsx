@@ -10,6 +10,8 @@ import { CustomerLoyalty } from "@/pages/CustomerLoyalty";
 import { ERPIntegration } from "@/pages/ERPIntegration";
 import { Compliance } from "@/pages/Compliance";
 import { Settings } from "@/pages/Settings";
+import UserListPage from "@/pages/admin/UserListPage";
+import UserDetailPage from "@/pages/admin/UserDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +35,9 @@ export const router = createBrowserRouter([
       { path: "erp", Component: ERPIntegration },
       { path: "compliance", Component: Compliance },
       { path: "settings", Component: Settings },
+      // Admin routes
+      { path: "admin/users", Component: UserListPage },
+      { path: "admin/users/:id", Component: UserDetailPage },
     ],
   },
 ]);
