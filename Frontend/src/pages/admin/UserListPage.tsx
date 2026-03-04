@@ -131,23 +131,31 @@ export default function UserListPage() {
         <p className="text-gray-600 mt-2">Danh sách tất cả người dùng trong hệ thống</p>
       </div>
 
-      <div className="flex gap-4 items-center">
-        <Input
-          placeholder="Tìm kiếm theo tên hoặc email..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="max-w-sm"
-        />
-        <select
-          value={size}
-          onChange={handleSizeChange}
-          className="px-3 py-2 border border-gray-300 rounded-md text-sm"
-        >
-          <option value={5}>5 trên trang</option>
-          <option value={10}>10 trên trang</option>
-          <option value={20}>20 trên trang</option>
-          <option value={50}>50 trên trang</option>
-        </select>
+      <div className="flex gap-4 items-center justify-between">
+        <div className="flex gap-4 items-center">
+          <Input
+            placeholder="Tìm kiếm theo tên hoặc email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="max-w-sm"
+          />
+          <select
+            value={size}
+            onChange={handleSizeChange}
+            className="px-3 py-2 border border-gray-300 rounded-md text-sm"
+          >
+            <option value={5}>5 trên trang</option>
+            <option value={10}>10 trên trang</option>
+            <option value={20}>20 trên trang</option>
+            <option value={50}>50 trên trang</option>
+          </select>
+        </div>
+
+        <div className="flex-shrink-0">
+          <Button onClick={() => navigate('/admin/users/create')}>
+            Tạo Người Dùng
+          </Button>
+        </div>
       </div>
 
       <div className="border rounded-lg overflow-hidden">

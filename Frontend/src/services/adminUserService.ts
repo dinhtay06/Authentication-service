@@ -1,3 +1,4 @@
+import { User } from 'lucide-react';
 import api from './api';
 
 export interface UserResponse {
@@ -9,7 +10,14 @@ export interface UserResponse {
   createdAt: string;
   updatedAt: string;
 }
-
+export interface CreateUserRequest {
+ email: string;
+ name: string;
+ address?: string;
+ role?:{
+  name: string;
+ };
+}
 export interface UserDetailResponse extends UserResponse {
   address?: string;
   roles: Role[];
@@ -89,6 +97,18 @@ const adminUserService = {
     });
     return response.data;
   },
+
+  //Create user Account by admin
+  createUser: async (UserData: CreateUserRequest): Promise<ApiResponse<UserResponse>> => {
+    try{
+      const response = await api.post('/api/admin/auth-users', UserData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  }
 };
 
+ 
 export default adminUserService;
