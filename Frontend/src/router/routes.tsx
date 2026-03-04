@@ -9,6 +9,7 @@ import { FranchiseOperations } from "@/pages/FranchiseOperations";
 import { CustomerLoyalty } from "@/pages/CustomerLoyalty";
 import { ERPIntegration } from "@/pages/ERPIntegration";
 import { Compliance } from "@/pages/Compliance";
+import { Permissions } from "@/pages/Permissions";
 import { Settings } from "@/pages/Settings";
 
 export const router = createBrowserRouter([
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
       { path: "loyalty", Component: CustomerLoyalty },
       { path: "erp", Component: ERPIntegration },
       { path: "compliance", Component: Compliance },
+      { path: "permissions", Component: Permissions },
       { path: "settings", Component: Settings },
     ],
   },

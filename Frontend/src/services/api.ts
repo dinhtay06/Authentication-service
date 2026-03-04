@@ -36,4 +36,25 @@ api.interceptors.response.use(
   }
 );
 
+// ==================== PERMISSIONS APIS ====================
+
+// Get all permissions
+export const getAllPermissions = () => {
+  return api.get('/admin/roles/permissions');
+};
+
+// Get permissions by role ID
+export const getPermissionsByRole = (roleId: number) => {
+  return api.get(`/admin/roles/${roleId}/permissions`);
+};
+
+// Add permission to role
+export const addPermissionToRole = (roleId: number, permissionName: string) => {
+  return api.post(`/admin/roles/${roleId}/permissions`, null, {
+    params: {
+      permissionName: permissionName,
+    },
+  });
+};
+
 export default api;

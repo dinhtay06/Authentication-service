@@ -16,6 +16,7 @@ import {
   Menu,
   X,
   Coffee,
+  Lock,
 } from 'lucide-react';
 
 export function Layout() {
@@ -39,6 +40,7 @@ export function Layout() {
     { path: '/loyalty', label: 'Customer Loyalty', icon: Heart },
     { path: '/erp', label: 'ERP & POS', icon: Database },
     { path: '/compliance', label: 'Compliance', icon: Shield },
+    { path: '/permissions', label: 'Permissions', icon: Lock },
     { path: '/settings', label: 'Settings', icon: Settings },
   ];
 
