@@ -131,7 +131,7 @@ export default function UserListPage() {
         <p className="text-gray-600 mt-2">Danh sách tất cả người dùng trong hệ thống</p>
       </div>
 
-      <div className="flex gap-4 items-center justify-between">
+      <div className="flex gap-4 items-center">
         <div className="flex gap-4 items-center">
           <Input
             placeholder="Tìm kiếm theo tên hoặc email..."
@@ -150,12 +150,6 @@ export default function UserListPage() {
             <option value={50}>50 trên trang</option>
           </select>
         </div>
-
-        <div className="flex-shrink-0">
-          <Button onClick={() => navigate('/admin/users/create')}>
-            Tạo Người Dùng
-          </Button>
-        </div>
       </div>
 
       <div className="border rounded-lg overflow-hidden">
@@ -167,6 +161,7 @@ export default function UserListPage() {
               <TableHead>Điện Thoại</TableHead>
               <TableHead>Trạng Thái</TableHead>
               <TableHead>Ngày Tạo</TableHead>
+              <TableHead>Ngày Cập Nhật</TableHead>
               <TableHead className="text-right">Hành Động</TableHead>
             </TableRow>
           </TableHeader>
@@ -179,6 +174,7 @@ export default function UserListPage() {
                   <TableCell>{user.phone || '-'}</TableCell>
                   <TableCell>{getStatusBadge(user.status)}</TableCell>
                   <TableCell>{new Date(user.createdAt).toLocaleDateString('vi-VN')}</TableCell>
+                  <TableCell>{new Date(user.updatedAt).toLocaleDateString('vi-VN')}</TableCell>
                   <TableCell className="text-right flex gap-2 justify-end">
                     <Button
                       size="sm"
@@ -204,7 +200,7 @@ export default function UserListPage() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                <TableCell colSpan={7} className="text-center py-8 text-gray-500">
                   Không tìm thấy người dùng nào
                 </TableCell>
               </TableRow>

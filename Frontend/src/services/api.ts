@@ -9,7 +9,7 @@ const api = axios.create({
 
 
 // Danh sách các API không cần đính kèm Token (Public APIs)
-const publicEndpoints = ['/auth/login', '/auth/register', '/auth/forgot-password'];
+const publicEndpoints = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
 
 // Attach token to every request if available
 api.interceptors.request.use((config) => {

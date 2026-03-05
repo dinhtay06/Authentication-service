@@ -1,6 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import { Layout } from "@/layouts/Layout";
 import { Login } from "@/pages/Login";
+import { ForgotPassword } from "@/pages/ForgotPassword";
+import { ResetPassword } from "@/pages/ResetPassword";
 import { Dashboard } from "@/pages/Dashboard";
 import { UserProfile } from "@/pages/UserProfile";
 import { OrderManagement } from "@/pages/OrderManagement";
@@ -12,11 +14,18 @@ import { Compliance } from "@/pages/Compliance";
 import { Settings } from "@/pages/Settings";
 import UserListPage from "@/pages/admin/UserListPage";
 import UserDetailPage from "@/pages/admin/UserDetailPage";
-import CreateUserPage from "@/pages/admin/CreateUserPage";
 export const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
+  },
+  {
+    path: "/forgot-password",
+    Component: ForgotPassword,
+  },
+  {
+    path: "/reset-password",
+    Component: ResetPassword,
   },
   {
     path: "/register",
@@ -37,7 +46,6 @@ export const router = createBrowserRouter([
       { path: "settings", Component: Settings },
       // Admin routes
       { path: "admin/users", Component: UserListPage },
-      { path: "admin/users/create", Component: CreateUserPage },
       { path: "admin/users/:id", Component: UserDetailPage },
     ],
   },
