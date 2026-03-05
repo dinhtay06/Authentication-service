@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { Coffee, Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { RegisterModal } from '@/components/RegisterModal';
@@ -27,7 +27,7 @@ export function Login() {
     setIsLoading(true);
     try {
       await authService.login({ email, password });
-      navigate('/');
+      navigate('/profile');
     } catch (err: unknown) {
       const message =
         (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
@@ -174,9 +174,9 @@ export function Login() {
                 />
                 <span className="text-sm text-gray-600">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-amber-600 hover:text-amber-700 font-medium">
+              <Link to="/forgot-password" className="text-sm text-amber-600 hover:text-amber-700 font-medium">
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             {/* Error message */}

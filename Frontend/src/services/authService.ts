@@ -40,7 +40,24 @@ export interface AuthResponse {
   user?: AuthUser;
 }
 
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  newPassword: string;
+}
+
 export const authService = {
+  async forgotPassword(email: string): Promise<void> {
+    await api.post<BaseResponse<null>>('/auth/forgot-password', { email });
+  },
+
+  async resetPassword(data: ResetPasswordRequest): Promise<void> {
+    await api.post<BaseResponse<null>>('/auth/reset-password', data);
+  },
+
   async login(data: LoginRequest): Promise<AuthResponse> {
     const response = await api.post<BaseResponse<LoginResponseData>>('/auth/login', data);
     console.log('Login response:', response.data);
