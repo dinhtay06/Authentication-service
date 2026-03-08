@@ -1,17 +1,31 @@
 import { useState } from 'react';
 import { User, Mail, Phone, MapPin, Building, Shield, Save, Edit, Camera } from 'lucide-react';
+import { authService } from '@/services/authService';
 
 export function UserProfile() {
+  const currentUser = authService.getCurrentUser();
+
+  const getInitials = (name: string) => {
+    if (!name.trim()) return '?';
+    return name
+      .split(' ')
+      .filter(Boolean)
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: 'John Anderson',
-    email: 'john.anderson@capitalcoffee.com',
-    phone: '+1 (555) 123-4567',
-    role: 'Admin',
-    department: 'Operations',
-    location: 'New York, NY',
-    franchiseId: 'HQ-001',
-    permissions: ['Full System Access', 'User Management', 'Financial Reports', 'Compliance Management'],
+    name: currentUser?.name ?? '',
+    email: currentUser?.email ?? '',
+    phone: '',
+    role: currentUser?.role ?? '',
+    department: '',
+    location: '',
+    franchiseId: '',
+    permissions: [] as string[],
   });
 
   const handleSave = () => {
@@ -51,7 +65,7 @@ export function UserProfile() {
           <div className="flex flex-col items-center">
             <div className="relative">
               <div className="w-32 h-32 bg-amber-600 rounded-full flex items-center justify-center">
-                <span className="text-4xl font-bold text-white">JA</span>
+                <span className="text-4xl font-bold text-white">{getInitials(formData.name)}</span>
               </div>
               {isEditing && (
                 <button className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow-lg border border-gray-200 hover:bg-gray-50">

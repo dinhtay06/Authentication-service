@@ -7,10 +7,17 @@ const api = axios.create({
   },
 });
 
+
+// Danh sách các API không cần đính kèm Token (Public APIs)
+const publicEndpoints = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
+
 // Attach token to every request if available
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
-  if (token) {
+
+  // Kiểm tra xem URL hiện tại có nằm trong danh sách không cần token không
+  const isPublicAPI = publicEndpoints.some(endpoint => config.url?.includes(endpoint));
+  if (token && !isPublicAPI) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
@@ -28,5 +35,28 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+// ==================== PERMISSIONS APIS ====================
+
+// Get all permissions
+export const getAllPermissions = () => {
+  return api.get('/admin/roles/permissions');
+};
+
+// Get permissions by role ID
+export const getPermissionsByRole = (roleId: number) => {
+  return api.get(`/admin/roles/${roleId}/permissions`);
+};
+
+// Add permission to role
+export const addPermissionToRole = (roleId: number, permissionName: string) => {
+  return api.post(`/admin/roles/${roleId}/permissions`, null, {
+    params: {
+      permissionName: permissionName,
+    },
+  });
+};
 
 export default api;
+
+
+
