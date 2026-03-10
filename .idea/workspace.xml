@@ -5,15 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d67c2002-44c2-4517-a214-a237618cea4c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/.idea/Backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/service/imp/JwtServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/service/imp/JwtServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/project/MicroserviceJava02/group-2" value="3AEoy5ISqnb6Z4Iu76eW7jA3yaP" />
+    </persistenceIdMap>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,16 +66,29 @@
     "git-widget-placeholder": "dev",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/MicroserviceJava02/group-2",
+    "last_opened_file_path": "D:/project/MicroserviceJava02/group-2/Backend/CSFC-auth-service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\MicroserviceJava02\group-2\Backend\CSFC-auth-service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\project\MicroserviceJava02\group-2\Backend\CSFC-auth-service" />
+      <recent name="D:\project\MicroserviceJava02\group-2\Backend" />
+      <recent name="D:\project\MicroserviceJava02\group-2" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="CsfcAuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="CSFC-auth-service" />
@@ -77,8 +101,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.240" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.29188.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.29188.11" />
       </set>
     </attachedChunks>
   </component>
@@ -93,6 +117,8 @@
       <workItem from="1772255362770" duration="332000" />
       <workItem from="1772255805859" duration="102000" />
       <workItem from="1773137044588" duration="287000" />
+      <workItem from="1773162777303" duration="591000" />
+      <workItem from="1773163476635" duration="1486000" />
     </task>
     <servers />
   </component>
