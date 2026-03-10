@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
+// Cấu hình AuthenticationManager để sử dụng CustomerUserDetailsService và PasswordEncoder
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, CustomerUserDetailsService customerUserDetailsService) throws Exception {
         AuthenticationManagerBuilder authBuilder =
