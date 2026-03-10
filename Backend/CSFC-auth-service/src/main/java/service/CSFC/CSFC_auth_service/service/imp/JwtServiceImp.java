@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JwtServiceImp implements JwtService {
+
     @Value("${jwt.secret}")
     private String secretKey;
 

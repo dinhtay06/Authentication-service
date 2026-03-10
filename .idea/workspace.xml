@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d67c2002-44c2-4517-a214-a237618cea4c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/service/imp/JwtServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/service/imp/JwtServiceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,17 +41,27 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.CsfcAuthServiceApplication.executor": "Run",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "dev",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/MicroserviceJava02/group-2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -66,8 +77,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.29188.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.29188.11" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.240" />
       </set>
     </attachedChunks>
   </component>
@@ -81,11 +92,15 @@
       <workItem from="1772167342990" duration="1717000" />
       <workItem from="1772255362770" duration="332000" />
       <workItem from="1772255805859" duration="102000" />
+      <workItem from="1773137044588" duration="287000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
