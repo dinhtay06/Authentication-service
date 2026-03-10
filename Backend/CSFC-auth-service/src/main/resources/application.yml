@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: authentication-service
   datasource:
     url: jdbc:mysql://localhost:3307/authentication_db
     username: root
@@ -31,3 +33,11 @@ jwt:
   secret: V7Pz0c5ZmTz4IVBdBrgiapaNOSKpRDWtT8AsXm+C1mE=
   access-token-expiration: 900000 # 15 minutes (ms)
   refresh-token-expiration: 604800000 # 7 days (ms)
+eureka:
+  client:
+    service-url:
+      defaultZone: https://microservice-6dyb.onrender.com/eureka # Trỏ tới Eureka Server
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
