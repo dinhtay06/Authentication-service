@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d67c2002-44c2-4517-a214-a237618cea4c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/.idea/Backend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +18,7 @@
     </persistenceIdMap>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Backend/CSFC-auth-service" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -63,10 +54,10 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.CsfcAuthServiceApplication.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/project/MicroserviceJava02/group-2/Backend/CSFC-auth-service",
+    "last_opened_file_path": "D:/project/MicroserviceJava02/group-2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,6 +110,7 @@
       <workItem from="1773137044588" duration="287000" />
       <workItem from="1773162777303" duration="591000" />
       <workItem from="1773163476635" duration="1486000" />
+      <workItem from="1773168230531" duration="325000" />
     </task>
     <servers />
   </component>
