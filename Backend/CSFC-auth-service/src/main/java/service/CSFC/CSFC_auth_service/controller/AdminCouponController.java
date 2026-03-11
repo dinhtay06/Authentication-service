@@ -1,4 +1,4 @@
-package service.CSFC.CSFC_auth_service.controller.controller.admin;
+package service.CSFC.CSFC_auth_service.controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;

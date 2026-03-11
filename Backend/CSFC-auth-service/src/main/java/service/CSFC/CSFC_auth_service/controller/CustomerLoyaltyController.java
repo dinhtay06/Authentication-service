@@ -1,4 +1,4 @@
-package service.CSFC.CSFC_auth_service.controller.controller.customer;
+package service.CSFC.CSFC_auth_service.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

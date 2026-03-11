@@ -1,4 +1,4 @@
-package service.CSFC.CSFC_auth_service.controller.controller.customer;
+package service.CSFC.CSFC_auth_service.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
