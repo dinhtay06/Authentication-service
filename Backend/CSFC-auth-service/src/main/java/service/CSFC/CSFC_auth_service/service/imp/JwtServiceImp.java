@@ -54,7 +54,11 @@ public class JwtServiceImp implements JwtService {
 
         if (userDetails instanceof CustomerUserDetails customUserDetails) {
             extraClaims.put("userId", customUserDetails.getUser().getId());
+            extraClaims.put("name", customUserDetails.getUser().getName());
+            extraClaims.put("role", customUserDetails.getUser().getRole().getName());
         }
+
+
 
         return buildToken(extraClaims, userDetails, accessTokenExpiration);
     }
