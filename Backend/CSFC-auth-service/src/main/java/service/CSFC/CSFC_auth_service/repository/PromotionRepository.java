@@ -18,7 +18,7 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     // Logic overlapping: (StartA <= EndB) and (EndA >= StartB)
     @Query("SELECT COUNT(p) > 0 FROM Promotion p " +
            "WHERE p.franchiseId = :franchiseId " +
-           "AND p.status IN (com.group5.engagement.constants.PromotionStatus.ACTIVE, com.group5.engagement.constants.PromotionStatus.DRAFT) " +
+           "AND p.status IN (service.CSFC.CSFC_auth_service.model.constants.PromotionStatus.ACTIVE, service.CSFC.CSFC_auth_service.model.constants.PromotionStatus.DRAFT) " +
            "AND (:startDate <= p.endDate AND :endDate >= p.startDate)")
     boolean existsOverlappingPromotion(@Param("franchiseId") Long franchiseId, 
                                        @Param("startDate") LocalDateTime startDate, 
@@ -28,13 +28,13 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     List<Promotion> findByStatusAndFranchiseId(PromotionStatus status, Long franchiseId);
 
     @Query("SELECT p FROM Promotion p " +
-            "WHERE p.status = com.group5.engagement.constants.PromotionStatus.ACTIVE " +
+            "WHERE p.status = service.CSFC.CSFC_auth_service.model.constants.PromotionStatus.ACTIVE " +
             "AND p.startDate <= :now " +
             "AND p.endDate >= :now")
     List<Promotion> findActivePromotionsNow(@Param("now") LocalDateTime now);
 
     @Query("SELECT p FROM Promotion p " +
-            "WHERE p.status = com.group5.engagement.constants.PromotionStatus.ACTIVE " +
+            "WHERE p.status = service.CSFC.CSFC_auth_service.model.constants.PromotionStatus.ACTIVE " +
             "AND p.franchiseId = :franchiseId " +
             "AND p.startDate <= :now " +
             "AND p.endDate >= :now")
@@ -50,7 +50,7 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     
     @Query("SELECT p FROM Promotion p " +
             "WHERE p.endDate BETWEEN :now AND :futureDate " +
-            "AND p.status = com.group5.engagement.constants.PromotionStatus.ACTIVE " +
+            "AND p.status = service.CSFC.CSFC_auth_service.model.constants.PromotionStatus.ACTIVE " +
             "ORDER BY p.endDate ASC")
     List<Promotion> findExpiringSoon(@Param("now") LocalDateTime now, 
                                      @Param("futureDate") LocalDateTime futureDate);

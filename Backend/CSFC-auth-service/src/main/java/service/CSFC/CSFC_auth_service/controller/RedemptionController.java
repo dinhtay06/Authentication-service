@@ -1,6 +1,7 @@
 package service.CSFC.CSFC_auth_service.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/engagement/redemption")
+@RequiredArgsConstructor
 public class RedemptionController {
-    @Autowired
+
     private RedemptionService redemptionService;
 
     @PostMapping("/confirm/{rewardId}")

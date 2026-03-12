@@ -1,6 +1,7 @@
 package service.CSFC.CSFC_auth_service.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.CSFC.CSFC_auth_service.model.dto.request.ApplyCouponRequest;
@@ -15,8 +16,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/engagement/coupons")
+@RequiredArgsConstructor
 public class CouponController {
-    @Autowired
+
     private CouponService couponService;
 
     @PostMapping("/apply")
