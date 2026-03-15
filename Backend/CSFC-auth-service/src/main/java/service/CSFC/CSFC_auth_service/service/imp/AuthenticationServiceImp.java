@@ -76,6 +76,27 @@ public class AuthenticationServiceImp implements AuthenticationService {
     }
 
     @Override
+    public RegisterResponse registerCustomer(RegisterRequest request) {
+        if (usersRepository.existsByEmail(request.getEmail())) {
+            throw new BadRequestException(
+                    "Email này đã tồn tại trên hệ thống, vui lòng sử dụng 1 email khác hoặc quên mật khẩu");
+        }
+
+
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        Users user = userMapper.toEntity(request, encodedPassword);
+        Roles defaultRole = new Roles();
+        defaultRole.setId(5); // role CUSTOMER có ID là 5
+        user.setRole(defaultRole);
+        user.setCreateDate(LocalDateTime.now());
+        usersRepository.save(user);
+
+        return RegisterResponse.builder()
+                .user(userMapper.toResponse(user))
+                .build();
+    }
+
+    @Override
     public AuthResponse refreshToken(RefreshTokenRequest request) {
         String refreshToken = request.getRefreshToken();
         String email = jwtService.extractUsername(refreshToken);

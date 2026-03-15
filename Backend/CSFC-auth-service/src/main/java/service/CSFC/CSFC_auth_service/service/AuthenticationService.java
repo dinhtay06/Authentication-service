@@ -10,6 +10,9 @@ public interface AuthenticationService {
 
     RegisterResponse register(RegisterRequest request);
 
+    RegisterResponse registerCustomer(RegisterRequest request);
+
+
     AuthResponse refreshToken(RefreshTokenRequest request);
 
     void forgotPassword(ForgotPasswordRequest request);

@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d67c2002-44c2-4517-a214-a237618cea4c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/common/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/common/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/infrastructure/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/infrastructure/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/service/imp/JwtServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/java/service/CSFC/CSFC_auth_service/service/imp/JwtServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/test/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/CSFC-auth-service/src/test/resources/application-test-backup.yml.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +25,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Backend/CSFC-auth-service" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -71,6 +77,9 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\project\MicroserviceJava02\group-2\Backend\CSFC-auth-service" />
@@ -113,6 +122,7 @@
       <workItem from="1773163476635" duration="1486000" />
       <workItem from="1773168230531" duration="1107000" />
       <workItem from="1773215891915" duration="14000" />
+      <workItem from="1773554527315" duration="1691000" />
     </task>
     <servers />
   </component>

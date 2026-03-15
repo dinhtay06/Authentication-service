@@ -56,4 +56,12 @@ public class AuthenticationController {
         authenticationService.resetPassword(request);
         return ResponseEntity.ok(BaseResponse.success("Đặt lại mật khẩu thành công", null));
     }
+
+    @PostMapping("/register-customer")
+    public ResponseEntity<BaseResponse<RegisterResponse>> registerCustomer(@Valid @RequestBody RegisterRequest request) {
+        RegisterResponse response = authenticationService.registerCustomer(request);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(BaseResponse.success("Đăng ký customer thành công", response));
+    }
 }

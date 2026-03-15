@@ -16,6 +16,6 @@ logging:
 
 # JWT properties (top-level) required by JwtServiceImp
 jwt:
-  secret: c2VjdXJlX3Rlc3Rfc2VjcmV0X2tleV9mb3JfdGVzdF9sb25nX3N0cmluZw==
-  access-token-expiration: 3600000
-  refresh-token-expiration: 86400000
+  secret-test: c2VjdXJlX3Rlc3Rfc2VjcmV0X2tleV9mb3JfdGVzdF9sb25nX3N0cmluZw==
+  access-token-expiration-test: 3600000
+  refresh-token-expiration-test: 86400000
