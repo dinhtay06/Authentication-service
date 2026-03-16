@@ -25,9 +25,10 @@ export interface UserDetailResponse extends UserResponse {
 }
 
 export interface Role {
-  id: string;
-  name: string;
-  description: string;
+  id: string | number;
+  name?: string;
+  roleName?: string;
+  description?: string;
 }
 
 export interface ResetPasswordResponse {
@@ -91,9 +92,9 @@ const adminUserService = {
   },
 
   // Assign role to user
-  assignRole: async (userId: string, roleId: string): Promise<ApiResponse<string>> => {
+  assignRole: async (userId: string, roleId: string | number): Promise<ApiResponse<string>> => {
     const response = await api.put(`/api/admin/auth-users/${userId}/roles`, {
-      roleId,
+      roleId: Number(roleId),
     });
     return response.data;
   },
@@ -107,6 +108,12 @@ const adminUserService = {
       console.error('Error creating user:', error);
       throw error;
     }
+  },
+
+  // Get all roles
+  getAllRoles: async (): Promise<ApiResponse<Role[]>> => {
+    const response = await api.get('/roles');
+    return response.data;
   }
 };
 

@@ -50,4 +50,13 @@ public class AdminPermissionsController {
         return ResponseEntity.ok(BaseResponse.success("Lấy danh sách permission của role thành công", permissions));
     }
 
+    @PostMapping("/{roleId}/permissions/remove")
+    @PreAuthorize("hasAuthority('PERMISSION_ASSIGN')")
+    public ResponseEntity<BaseResponse<Object>> deletePermissionFromRole(
+            @PathVariable Integer roleId,
+            @RequestParam @NotBlank String permissionName
+    ) {
+        adminPermissionsService.deletePermissionFromRole(roleId, permissionName.trim().toUpperCase());
+        return ResponseEntity.ok(BaseResponse.success("Gỡ permission khỏi role thành công", null));
+    }
 }

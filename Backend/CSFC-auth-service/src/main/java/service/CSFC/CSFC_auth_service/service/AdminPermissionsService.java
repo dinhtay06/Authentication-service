@@ -11,4 +11,6 @@ public interface AdminPermissionsService {
     List<AdminPermissionsViewResponse> getAllPermissions();
 
     List<AdminPermissionsViewResponse> getAllPermissionsByRole(Integer roleId);
+
+    void deletePermissionFromRole(Integer roleId, String permissionName);
 }
