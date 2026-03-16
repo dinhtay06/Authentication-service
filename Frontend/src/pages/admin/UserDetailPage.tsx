@@ -36,12 +36,25 @@ export default function UserDetailPage() {
   const [activateDialogOpen, setActivateDialogOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [assigningRole, setAssigningRole] = useState(false);
+  const [availableRoles, setAvailableRoles] = useState<Role[]>([]);
 
   useEffect(() => {
     if (id) {
       fetchUserDetail();
+      fetchRoles();
     }
   }, [id]);
+
+  const fetchRoles = async () => {
+    try {
+      const response = await adminUserService.getAllRoles();
+      if (response && response.data) {
+        setAvailableRoles(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+    }
+  };
 
   const fetchUserDetail = async () => {
     if (!id) return;
@@ -259,10 +272,9 @@ export default function UserDetailPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
                   >
                     <option value="">-- Chọn vai trò --</option>
-                    <option value="ADMIN">Admin</option>
-                    <option value="MANAGER">Quản Lý</option>
-                    <option value="STAFF">Nhân Viên</option>
-                    <option value="USER">Người Dùng</option>
+                    {availableRoles.map(role => (
+                      <option key={role.id} value={role.id}>{role.roleName || role.name}</option>
+                    ))}
                   </select>
                   <div className="flex gap-3 justify-end">
                     <Button variant="outline" onClick={() => setAssignRoleDialogOpen(false)}>

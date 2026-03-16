@@ -1,6 +1,6 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { Lock, Plus, Trash2, Eye, AlertCircle, Loader } from 'lucide-react';
-import { getAllPermissions, getPermissionsByRole, addPermissionToRole } from '@/services/api';
+import { getAllPermissions, getPermissionsByRole, addPermissionToRole, removePermissionFromRole } from '@/services/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -8,7 +8,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Permission {
   id?: number;
-  permissionName: string;
+  permissionName?: string;
+  name?: string;
   description?: string;
 }
 
@@ -101,6 +102,25 @@ export function Permissions() {
     }
   };
 
+  // Handle remove permission from role
+  const handleRemovePermission = async (roleId: number, permissionName: string) => {
+    setLoading(true);
+    setError('');
+    try {
+      await removePermissionFromRole(roleId, permissionName);
+      setSuccess('Đã gỡ quyền khỏi role thành công');
+      setTimeout(() => setSuccess(''), 3000);
+      // Refresh role permissions from database
+      fetchRolePermissions(roleId);
+    } catch (err: any) {
+      const message = err.response?.data?.message || 'Lỗi khi gỡ quyền khỏi role';
+      setError(message);
+      console.error('Error removing permission:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchAllPermissions();
   }, []);
@@ -138,21 +158,19 @@ export function Permissions() {
       <div className="flex gap-2 border-b border-gray-200">
         <button
           onClick={() => setActiveTab('all')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'all'
+          className={`px-4 py-2 font-medium border-b-2 transition-colors ${activeTab === 'all'
               ? 'border-amber-600 text-amber-600'
               : 'border-transparent text-gray-600 hover:text-gray-900'
-          }`}
+            }`}
         >
           Tất Cả Quyền
         </button>
         <button
           onClick={() => setActiveTab('byRole')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'byRole'
+          className={`px-4 py-2 font-medium border-b-2 transition-colors ${activeTab === 'byRole'
               ? 'border-amber-600 text-amber-600'
               : 'border-transparent text-gray-600 hover:text-gray-900'
-          }`}
+            }`}
         >
           Quyền Theo Role
         </button>
@@ -187,7 +205,7 @@ export function Permissions() {
                           <Lock className="w-4 h-4 text-amber-700" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium text-gray-900">{permission.permissionName}</p>
+                          <p className="font-medium text-gray-900">{permission.name || permission.permissionName}</p>
                           {permission.description && (
                             <p className="text-sm text-gray-500">{permission.description}</p>
                           )}
@@ -274,14 +292,18 @@ export function Permissions() {
                           <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
                             <Lock className="w-4 h-4 text-amber-700" />
                           </div>
-                          <div className="flex-1">
-                            <p className="font-medium text-gray-900">{permission.permissionName}</p>
+                        <div className="flex-1">
+                            <p className="font-medium text-gray-900">{permission.name || permission.permissionName}</p>
                             {permission.description && (
                               <p className="text-sm text-gray-500">{permission.description}</p>
                             )}
                           </div>
                         </div>
-                        <button className="p-2 hover:bg-red-100 rounded-lg transition-colors">
+                        <button 
+                          onClick={() => handleRemovePermission(selectedRole.id, permission.name || permission.permissionName || '')}
+                          disabled={loading}
+                          className="p-2 hover:bg-red-100 rounded-lg transition-colors disabled:opacity-50"
+                        >
                           <Trash2 className="w-4 h-4 text-red-600" />
                         </button>
                       </div>
@@ -319,16 +341,21 @@ export function Permissions() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Tên Quyền
                     </label>
-                    <Input
-                      type="text"
-                      placeholder="Ví dụ: PERMISSION_ASSIGN"
+                    <select
                       value={newPermission}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPermission(e.target.value.toUpperCase())}
-                      className="w-full"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Tên quyền sẽ được chuyển thành chữ hoa tự động
-                    </p>
+                      onChange={(e) => setNewPermission(e.target.value)}
+                      className="flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <option value="">Chọn quyền cần thêm...</option>
+                      {permissions.map((p, idx) => {
+                        const pName = p.name || p.permissionName;
+                        return (
+                          <option key={p.id || idx} value={pName}>
+                            {pName} {p.description ? `(${p.description})` : ''}
+                          </option>
+                        );
+                      })}
+                    </select>
                   </div>
 
                   <Button
@@ -354,11 +381,10 @@ export function Permissions() {
                   <button
                     key={role.id}
                     onClick={() => handleSelectRole(role)}
-                    className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm font-medium border ${
-                      selectedRole?.id === role.id
+                    className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm font-medium border ${selectedRole?.id === role.id
                         ? 'bg-amber-600 text-white border-amber-600'
                         : 'bg-white text-gray-900 border-gray-200 hover:bg-amber-50'
-                    }`}
+                      }`}
                   >
                     {role.name}
                   </button>

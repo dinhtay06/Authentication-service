@@ -56,7 +56,13 @@ export const addPermissionToRole = (roleId: number, permissionName: string) => {
   });
 };
 
+// Remove permission from role
+export const removePermissionFromRole = (roleId: number, permissionName: string) => {
+  return api.post(`/admin/roles/${roleId}/permissions/remove`, null, {
+    params: {
+      permissionName: permissionName,
+    },
+  });
+};
+
 export default api;
-
-
-

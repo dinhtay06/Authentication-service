@@ -58,4 +58,20 @@ public class AdminPermissionsServiceImpl implements AdminPermissionsService {
                 .map(permissionMapper::toResponse)
                 .toList();
     }
+
+    @Override
+    public void deletePermissionFromRole(Integer roleId, String permissionName) {
+        Roles role = rolesRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
+
+        Permission permission = permissionsRepository.findByName(permissionName)
+                .orElseThrow(() -> new RuntimeException("Permission không tồn tại"));
+
+        if (!role.getPermissions().contains(permission)) {
+            throw new RuntimeException("Permission không tồn tại trong role");
+        }
+        role.getPermissions().remove(permission);
+
+        rolesRepository.save(role);
+    }
 }
