@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://csfc-auth-service.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -9,7 +9,7 @@ const api = axios.create({
 
 
 // Danh sách các API không cần đính kèm Token (Public APIs)
-const publicEndpoints = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
+const publicEndpoints = ['/api/authentication-service/auth/login', '/api/authentication-service/auth/register', '/api/authentication-service/auth/forgot-password', '/api/authentication-service/auth/reset-password'];
 
 // Attach token to every request if available
 api.interceptors.request.use((config) => {
@@ -39,26 +39,26 @@ api.interceptors.response.use(
 
 // Get all permissions
 export const getAllPermissions = () => {
-  return api.get('/admin/roles/permissions');
+  return api.get('api/authentication-service/admin/roles/permissions');
 };
 
 // Get permissions by role ID
 export const getPermissionsByRole = (roleId: number) => {
-  return api.get(`/admin/roles/${roleId}/permissions`);
+  return api.get(`api/authentication-service/admin/roles/${roleId}/permissions`);
 };
 
 // Add permission to role
 export const addPermissionToRole = (roleId: number, permissionName: string) => {
-  return api.post(`/admin/roles/${roleId}/permissions`, null, {
+  return api.post(`api/authentication-service/admin/roles/${roleId}/permissions`, null, {
     params: {
       permissionName: permissionName,
     },
   });
-};
+};  
 
 // Remove permission from role
 export const removePermissionFromRole = (roleId: number, permissionName: string) => {
-  return api.post(`/admin/roles/${roleId}/permissions/remove`, null, {
+  return api.post(`api/authentication-service/admin/roles/${roleId}/permissions/remove`, null, {
     params: {
       permissionName: permissionName,
     },

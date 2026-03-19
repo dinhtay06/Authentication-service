@@ -67,7 +67,7 @@ const adminUserService = {
     sortBy: string = 'name',
     sortDir: string = 'asc'
   ): Promise<ApiResponse<PaginatedResponse<UserResponse>>> => {
-    const response = await api.get('/api/admin/auth-users', {
+    const response = await api.get('api/authentication-service/auth-users', {
       params: { page, size, sortBy, sortDir },
     });
     return response.data;
@@ -75,25 +75,25 @@ const adminUserService = {
 
   // Get user detail by ID
   getUserDetail: async (id: string): Promise<ApiResponse<UserDetailResponse>> => {
-    const response = await api.get(`/api/admin/auth-users/${id}`);
+    const response = await api.get(`api/authentication-service/auth-users/${id}`);
     return response.data;
   },
 
   // Reset password for user
   resetPassword: async (id: string): Promise<ApiResponse<ResetPasswordResponse>> => {
-    const response = await api.put(`/api/admin/auth-users/${id}/reset-password`);
+    const response = await api.put(`api/authentication-service/auth-users/${id}/reset-password`);
     return response.data;
   },
 
   // Activate user account
   activateUser: async (id: string): Promise<ApiResponse<string>> => {
-    const response = await api.put(`/api/admin/auth-users/${id}/activate`);
+    const response = await api.put(`api/authentication-service/auth-users/${id}/activate`);
     return response.data;
   },
 
   // Assign role to user
   assignRole: async (userId: string, roleId: string | number): Promise<ApiResponse<string>> => {
-    const response = await api.put(`/api/admin/auth-users/${userId}/roles`, {
+    const response = await api.put(`api/authentication-service/auth-users/${userId}/roles`, {
       roleId: Number(roleId),
     });
     return response.data;
@@ -102,7 +102,7 @@ const adminUserService = {
   //Create user Account by admin
   createUser: async (UserData: CreateUserRequest): Promise<ApiResponse<UserResponse>> => {
     try{
-      const response = await api.post('/api/admin/auth-users', UserData);
+      const response = await api.post('api/authentication-service/auth-users', UserData);
       return response.data;
     } catch (error) {
       console.error('Error creating user:', error);
@@ -112,7 +112,7 @@ const adminUserService = {
 
   // Get all roles
   getAllRoles: async (): Promise<ApiResponse<Role[]>> => {
-    const response = await api.get('/roles');
+    const response = await api.get('api/authentication-service/roles');
     return response.data;
   }
 };
